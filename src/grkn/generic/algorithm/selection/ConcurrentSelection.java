@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +17,7 @@ public class ConcurrentSelection {
 	public static Integer MOD = 100000;
 	public static int MAX_VALUE = 5000000;
 	public static ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 100, 0L, TimeUnit.MILLISECONDS,
-			new LinkedBlockingQueue<>());
+			new SynchronousQueue<>());
 
 	public static void main(String[] args) {
 
