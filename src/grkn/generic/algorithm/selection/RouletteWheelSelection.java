@@ -7,11 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 public class RouletteWheelSelection {
 
-	private static class Population {
+	static class Population {
 		private String population;
 		private double fitness;
 
@@ -49,6 +50,21 @@ public class RouletteWheelSelection {
 				.map(item -> item.getPopulation()).collect(Collectors.toList());
 
 		return list.toArray(new String[list.size()]);
+	}
+
+	public static Callable<String[]> selectionConcurrent(List<Population> populations) {
+		return new Callable<String[]>() {
+
+			@Override
+			public String[] call() throws Exception {
+				populations.parallelStream().forEach(str -> str.setFitness(fitness(str.getPopulation().toCharArray())));
+				int randomValue = createRandomInteger();
+				List<String> list = populations.parallelStream()
+						.filter(population -> ((double) randomValue / 1000) < population.getFitness())
+						.map(item -> item.getPopulation()).collect(Collectors.toList());
+				return list.toArray(new String[list.size()]);
+			}
+		};
 	}
 
 	private static int createRandomInteger() {
