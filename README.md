@@ -23,3 +23,10 @@ loop until new population is full
     end
     create offspring
 end loop
+
+
+
+INITIALIZE BEGINS
+INITIALIZE ENDS
+SELECTION BEGINS Thu Aug 15 17:48:53 EET 2019
+SELECTION ENDS Thu Aug 15 17:49:45 EET 2019
